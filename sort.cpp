@@ -4,6 +4,9 @@ void printArray(int container[], int n);
 
 void swap(int container[], int posA, int posB);
 
+/* *
+ * Selection Sort has a max runtime of O(n^2)
+ * */
 void selectionSort(int container[], int n);
 
 int main()
