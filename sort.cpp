@@ -11,7 +11,7 @@ void selectionSort(int container[], int n);
 
 int main()
 {
-	int arr[] = { 8, 2, 1, 3, 6 };	
+	int arr[] = { 5, 9, 2, 12, 3, 7, 8, 14, 4, 1 };	
 	size_t arrSize = sizeof(arr) / sizeof(int);
 	selectionSort(arr, arrSize);
 	printArray(arr, arrSize);	
@@ -55,5 +55,6 @@ void selectionSort(int container[], int n)
 		}
 		// Swap the acutal element with the smallest one
 		swap(container, min_i, i);
+		printArray(container, n);
 	}
 }
