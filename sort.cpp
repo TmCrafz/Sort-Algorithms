@@ -5,15 +5,17 @@ void printArray(int container[], int n);
 void swap(int container[], int posA, int posB);
 
 /* *
- * Selection Sort has a max runtime of O(n^2)
  * */
 void selectionSort(int container[], int n);
+
+void insertionSort(int container[], int n);
 
 int main()
 {
 	int arr[] = { 5, 9, 2, 12, 3, 7, 8, 14, 4, 1 };	
 	size_t arrSize = sizeof(arr) / sizeof(int);
-	selectionSort(arr, arrSize);
+	//selectionSort(arr, arrSize);
+	insertionSort(arr, arrSize);
 	printArray(arr, arrSize);	
 	return 0;
 }
@@ -56,5 +58,20 @@ void selectionSort(int container[], int n)
 		// Swap the acutal element with the smallest one
 		swap(container, min_i, i);
 		printArray(container, n);
+	}
+}
+
+void insertionSort(int container[], int n)
+{
+	for (int i = 1; i < n; i++)
+	{
+		int j = i;
+		// Swap the elements when the left element is smaller then the acutal one.
+		// If the left element is not smaller the actual element is on its right position.
+		while((j > 0) && (container[j] < container[j -1]))
+		{
+			swap(container, j , j - 1);
+			j--;
+		}
 	}
 }
