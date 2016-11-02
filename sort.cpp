@@ -20,12 +20,16 @@ void selectionSort(int container[], int n);
  * */
 void insertionSort(int container[], int n);
 
+void bubbleSort(int container[], int n);
+
 int main()
 {
 	int arr[] = { 5, 9, 2, 12, 3, 7, 8, 14, 4, 1 };	
 	size_t arrSize = sizeof(arr) / sizeof(int);
 	//selectionSort(arr, arrSize);
-	insertionSort(arr, arrSize);
+	//insertionSort(arr, arrSize);
+	bubbleSort(arr, arrSize);
+	//printArray(arr, arrSize);
 	return 0;
 }
 
@@ -86,4 +90,24 @@ void insertionSort(int container[], int n)
 			j--;
 		}
 	}
+}
+
+void bubbleSort(int container[], int n)
+{
+	// We go from left to right and compare the each element with the element right of it.
+	// If the actual element is bigger then the element on the right side, we swap the element.
+	// We do this as long we can go over the sequence without finding a higher element.
+	bool swapped = false;
+	do
+	{
+		swapped = false;
+		for (int i = 0; i < n - 1; i++)
+		{
+			if (container[i] > container[i + 1])
+			{
+				swap(container, i, i + 1);
+				swapped = true;
+			}
+		}
+	} while(swapped);
 }
