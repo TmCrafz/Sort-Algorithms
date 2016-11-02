@@ -63,6 +63,10 @@ void selectionSort(int container[], int n)
 
 void insertionSort(int container[], int n)
 {
+	// We go from left to right (start by element 1) and compare the element with
+	// the elements left of and swap it with the element left of it when its smaller.
+	// We do this as long there is a smaller element and we not arrive on the left side
+	// if the field.
 	for (int i = 1; i < n; i++)
 	{
 		int j = i;
@@ -72,6 +76,7 @@ void insertionSort(int container[], int n)
 		{
 			swap(container, j , j - 1);
 			j--;
+			printArray(container, n);
 		}
 	}
 }
