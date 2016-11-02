@@ -5,9 +5,19 @@ void printArray(int container[], int n);
 void swap(int container[], int posA, int posB);
 
 /* *
+ *	Selection Sort needs independent if the sequence is already sorted
+ *	(n*(n-1)) / 2 comparisons.
+ *	best-case, average-case, worst-case: (n(n-1)) / 2 = Theta(n^2)
  * */
 void selectionSort(int container[], int n);
 
+/* *
+ * best-case: n - 1 = 
+ * average-case
+ * worst-case: (n*(n-1)) / 2 = Theta(n^2)
+ * average-case: (n*(n-1)) / 4 = Theta(n^2)
+ * best-case: n - 1 = Theta(n)
+ * */
 void insertionSort(int container[], int n);
 
 int main()
@@ -16,7 +26,6 @@ int main()
 	size_t arrSize = sizeof(arr) / sizeof(int);
 	//selectionSort(arr, arrSize);
 	insertionSort(arr, arrSize);
-	printArray(arr, arrSize);	
 	return 0;
 }
 
@@ -57,7 +66,6 @@ void selectionSort(int container[], int n)
 		}
 		// Swap the acutal element with the smallest one
 		swap(container, min_i, i);
-		printArray(container, n);
 	}
 }
 
@@ -76,7 +84,6 @@ void insertionSort(int container[], int n)
 		{
 			swap(container, j , j - 1);
 			j--;
-			printArray(container, n);
 		}
 	}
 }
