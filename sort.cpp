@@ -12,15 +12,25 @@ void swap(int container[], int posA, int posB);
 void selectionSort(int container[], int n);
 
 /* *
- * best-case: n - 1 = 
- * average-case
- * worst-case: (n*(n-1)) / 2 = Theta(n^2)
- * average-case: (n*(n-1)) / 4 = Theta(n^2)
- * best-case: n - 1 = Theta(n)
+ *	worst-case: (n*(n-1)) / 2 = Theta(n^2)
+ *	average-case: (n*(n-1)) / 4 = Theta(n^2)
+ *	best-case: n - 1 = Theta(n)
  * */
 void insertionSort(int container[], int n);
 
+/**
+ *	best-case: Theta(n)
+ *	average-case: Theta(n^2)
+ *	worst-case: Theta(n^2)
+ * */
 void bubbleSort(int container[], int n);
+
+/**
+ *	best-case: O(n*log(n))
+ *	average-case: O(n*log(n))
+ *	worst-case: Theta(n^2)
+ * */
+void quickSort(int container[], int l, int r);
 
 int main()
 {
@@ -28,7 +38,8 @@ int main()
 	size_t arrSize = sizeof(arr) / sizeof(int);
 	//selectionSort(arr, arrSize);
 	//insertionSort(arr, arrSize);
-	bubbleSort(arr, arrSize);
+	//bubbleSort(arr, arrSize);
+	quickSort(arr, 0, arrSize - 1);
 	//printArray(arr, arrSize);
 	return 0;
 }
@@ -110,4 +121,43 @@ void bubbleSort(int container[], int n)
 			}
 		}
 	} while(swapped);
+}
+
+void quickSort(int container[], int l, int r)
+{
+	// We choose a Pivot element and check if the other elements are
+	// smaller or higher then the Pivot.
+	// Smaller Elements come to the left side of the Pivot and higher
+	// ones to the right side.( Higher one on the left side get swapped
+	// with smaller ones on the right side).
+
+	// Only run algorithm when we have more then one element to sort
+	if (l < r)
+	{
+		// Here we use the element rightmost of the container as Pivot
+		int p = container[r];
+		int i = l;
+		int j = r - 1;
+		do
+		{
+			while(i <= j && container[i] <= p)
+			{
+				i++;
+			}
+			while(i <= j && container[j] >= p)
+			{
+				j--;
+			}
+			if (i < j)
+			{
+				swap(container, i, j);
+			}	
+		} while(i < j);
+		// Pivot element to the middle. The pivot is now on the correct position.
+		swap(container, i, r);
+		// Sort the left side of the Pivot
+		quickSort(container, l, i - 1);	
+		// Sort the right side of the Pivot
+		quickSort(container, i + 1, r);
+	}
 }
