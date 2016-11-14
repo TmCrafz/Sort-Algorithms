@@ -38,19 +38,32 @@ void seepAway(int container[], int  i, int m);
 
 void heapSort(int container[], int n);
 
+// Merge Sort
+
+void merge(int container[], int l, int m, int r);
+
+void mergeSort(int container[], int l, int r);
+
 int main()
 {
 	//int arr[] = { 5, 9, 2, 12, 3, 7, 8, 14, 4, 1 };	
 	//int arr[] = { 5, 6, 2, 1, 4, 3 };
 	//int arr[] = { 1, 2, 6, 5, 4, 0, 3, 7 };
-	int arr[] = { 7, 3, 6, 1, 2, 4, 5, 0 };
+	//int arr[] = { 7, 3, 6, 1, 2, 4, 5, 0 };
+	int arr[] = { 6, 5, 4, 3, 2, 1 };	
+	//int arr[] = { 2, 1 };
+	//int arr[] = { 1, 2, 3, 5, 9, 4, 6, 7, 8, 10 };
 	size_t arrSize = sizeof(arr) / sizeof(int);
+	std::cout << "Before Sort: " << std::endl;
+	printArray(arr, arrSize);
 	//selectionSort(arr, arrSize);
 	//insertionSort(arr, arrSize);
 	//bubbleSort(arr, arrSize);
 	//quickSort(arr, 0, arrSize - 1);
 	//printArray(arr, arrSize);
-	heapSort(arr, arrSize);
+	//heapSort(arr, arrSize);
+	//mergeSort(arr, 0, arrSize - 1); 
+	merge(arr, 0, arrSize / 2, arrSize - 1);
 	std::cout << "After Sort: " << std::endl;
 	printArray(arr, arrSize);
 	return 0;
@@ -214,5 +227,52 @@ void heapSort(int container[], int n)
 		// After sweeping away the the highest Element is on the left side and the smallest on the right
 		swap(container, i, 0);
 		sweepAway(container, 0, i-1);
+	}
+}
+
+// Merge Sort
+
+void merge(int container[], int l, int m, int r)
+{
+	int arr[r - l + 1];
+	int i = l;
+	int j = m;
+	int addPos = 0;
+	
+	while(i <= m - 1 && j <= r)
+	{
+		if (container[i] <= container[j])
+		{					
+			arr[addPos++] = container[i++];
+		}
+		else
+		{			
+			arr[addPos++] = container[j++];
+		}
+	}
+	
+	while(i <= m - 1) 
+	{
+		arr[addPos++] = container[i++];
+	}
+	while(j <= r)
+	{
+		arr[addPos++] = container[j++];
+	}
+	
+	for (int k = 0; k < addPos; k++)
+	{
+		container[l + k] = arr[k];
+	}	
+}
+
+void mergeSort(int container[], int l, int r)
+{
+	if (l < r)
+	{
+		int m = (l + r) / 2;
+		mergeSort(container, l, m);
+		mergeSort(container, m + 1, r);
+		merge(container, l, m + 1, r);
 	}
 }
