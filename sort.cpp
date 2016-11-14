@@ -32,15 +32,27 @@ void bubbleSort(int container[], int n);
  * */
 void quickSort(int container[], int l, int r);
 
+// Heap Sort
+
+void seepAway(int container[], int  i, int m);
+
+void heapSort(int container[], int n);
+
 int main()
 {
-	int arr[] = { 5, 9, 2, 12, 3, 7, 8, 14, 4, 1 };	
+	//int arr[] = { 5, 9, 2, 12, 3, 7, 8, 14, 4, 1 };	
+	//int arr[] = { 5, 6, 2, 1, 4, 3 };
+	//int arr[] = { 1, 2, 6, 5, 4, 0, 3, 7 };
+	int arr[] = { 7, 3, 6, 1, 2, 4, 5, 0 };
 	size_t arrSize = sizeof(arr) / sizeof(int);
 	//selectionSort(arr, arrSize);
 	//insertionSort(arr, arrSize);
 	//bubbleSort(arr, arrSize);
-	quickSort(arr, 0, arrSize - 1);
+	//quickSort(arr, 0, arrSize - 1);
 	//printArray(arr, arrSize);
+	heapSort(arr, arrSize);
+	std::cout << "After Sort: " << std::endl;
+	printArray(arr, arrSize);
 	return 0;
 }
 
@@ -55,6 +67,7 @@ void printArray(int container[], int n)
 
 void swap(int container[], int posA, int posB)
 {
+	//std::cout << "SWAPPED" << std::endl;
 	int a = container[posA];
 	container[posA] = container[posB];
 	container[posB] = a;
@@ -159,5 +172,47 @@ void quickSort(int container[], int l, int r)
 		quickSort(container, l, i - 1);	
 		// Sort the right side of the Pivot
 		quickSort(container, i + 1, r);
+	}
+}
+
+// Heap Sort
+
+void sweepAway(int container[], int i, int m)
+{
+	while(2*i+1 <= m) 
+	{
+		int j = 2*i+1;
+		// Compare the 2 childs and set the higher ones as j
+		if ((2*i+2 <= m) && (container[2*i+1] < container[2*i+2]))
+		{
+			j = 2*i+2;
+		}
+		// Swap the higher child node with its parent when the child is higher then its parent
+		if (container[i] < container[j])
+		{
+			swap(container, i, j);
+			i = j;
+		}
+		else
+		{
+			// Break
+			i = m;
+		}
+	}
+}
+
+void heapSort(int container[], int n)
+{
+	// Create Heap
+	for (int i = (n/2)-1; i >= 0; i--)
+	{
+		sweepAway(container, i, n-1);
+	}	
+	// Sort
+	for (int i = n-1; i > 0; i--) 
+	{
+		// After sweeping away the the highest Element is on the left side and the smallest on the right
+		swap(container, i, 0);
+		sweepAway(container, 0, i-1);
 	}
 }
